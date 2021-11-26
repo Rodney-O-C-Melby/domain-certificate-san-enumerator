@@ -42,10 +42,10 @@ from scapy.volatile import RandShort
 # from cryptography.x509.oid import ExtensionOID
 
 __author__ = "Rodney Olav Christopher Melby"
-__copyright__ = "Copyright 2021, Rodney Olav Christopher Melby"
+__copyright__ = "Copyright 2022, Rodney Olav Christopher Melby"
 __credits__ = ["Rodney Olav Christopher Melby"]
 __license__ = "LGPL v3"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __maintainer__ = "Rodney Olav Christopher Melby"
 __status__ = "Production"
 

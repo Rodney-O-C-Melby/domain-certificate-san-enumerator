@@ -14,7 +14,7 @@ sudo chmod +x dcse.py
 sudo or root is required to make a new network connection, Python version 3.6 - 3.9 Required
 ```
 sudo python dcse.py  
-sudo python dcse.py pearcom.co.uk  
-sudo python dcse.py -n 1.1.1.1 pearcom.co.uk  
+sudo python dcse.py zonetransfer.me
+sudo python dcse.py -n 1.1.1.1 zonetransfer.me
 sudo python dcse.py -v  
 sudo python dcse.py -h

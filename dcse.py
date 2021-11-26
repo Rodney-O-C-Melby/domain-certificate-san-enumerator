@@ -30,8 +30,6 @@ from socket import gaierror
 from ssl import get_server_certificate
 from sys import argv
 from sys import exit
-
-
 from cryptography.x509 import load_pem_x509_certificate
 from cryptography.x509 import DNSName
 from cryptography.x509.oid import NameOID
@@ -82,7 +80,6 @@ def query_address(hostname, nameserver):
     """ Returns the A record of a live domain name else none. """
     dns_request = IP(dst=nameserver) / UDP(sport=RandShort(), dport=53) / DNS(rd=1, qd=DNSQR(qname=hostname, qtype="A",
                                                                                              qclass="IN"))
-    # print(dns_request.show())
     response = sr1(dns_request, verbose=0)  # scapy python library
     ips = []
     # print(response.show())  # for debugging
@@ -178,22 +175,12 @@ def query_san(hostname, port=443):
         certificate: bytes = get_server_certificate((hostname, port)).encode('utf-8')
         loaded_cert = load_pem_x509_certificate(certificate, default_backend())
         san = loaded_cert.extensions.get_extension_for_class(SubjectAlternativeName)  # cryptography < v1.0
-        # TODO: thought maybe library change in cryptography, no luck at fixing error, could not get below working with correct imports
+        # TODO: maybe library change from cryptography, import commented above
         # san = loaded_cert.extensions.get_extension_for_oid(ExtensionOID.SUBJECT_ALTERNATIVE_NAME)# cryptography > v1.0
-
         sans = san.value.get_values_for_type(DNSName)
         return sans
     except gaierror:
         return 1
-
-# TODO: implement
-# def query_reverse(target):
-#     """ Queries the reverse PTR for domain. """
-#     nameserver = get_local_name_server()
-#     # example_target = "67.169.217.172.in-addr.arpa"
-#     dns_request = IP(dst=nameserver) / UDP(dport=53) / DNS(rd=1, qd=DNSQR(qname=target, qtype="PTR", qclass="IN"))
-#     response = sr1(dns_request, verbose=0)  # scapy python library
-#     print(response.show())
 
 
 def print_list_as_string(data):
@@ -215,8 +202,7 @@ def handle_permissions():
 
 def handle_arguments():
     """ Ensure root permissions and Return parser containing help and usage. """
-    if not geteuid() == 0:  # check root permissions
-        exit("\nOnly root can run this script. Try using sudo!\n")
+    handle_permissions()
     parser = ArgumentParser(description="Domain SSL Certificate SAN Enumerator dcse returns the given domains "
                                         "subdomains using SAN.")
     parser.add_argument("FQDN", help="The target domain name.")
@@ -261,9 +247,7 @@ def dcse(hostname, nameserver):
 
 def main():
     """ Main program - handle user input, usage etc """
-
     server = get_local_name_server()
-    handle_permissions()  # handle permissions and no cmd line args
     arguments = handle_arguments()  # handle optional arguments help and usage
 
     # handle cmd line arguments

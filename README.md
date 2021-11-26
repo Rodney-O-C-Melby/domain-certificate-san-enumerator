@@ -5,7 +5,8 @@ Enumerates a domains SSL certificate for Subject Alternate Names (subdomains).
 Download the repository change to the relevant directory and give the file execute permissions
 ```
 git clone https://github.com/Rodney-O-C-Melby/domain-certificate-san-enumerator.git  
-cd domain-certificate-san-enumerator  
+cd domain-certificate-san-enumerator
+sudo pip install -r requirements.txt
 sudo chmod +x dcse.py
 ```  
   

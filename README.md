@@ -1,13 +1,16 @@
 # Domain SSL Certificate SAN Enumerator - DCSE
 Enumerates a domains SSL certificate for Subject Alternate Names (subdomains).
-
+# Requirements
+```
+python 3.9
+pip 20.3.4
+```
 # Get DCSE
 Download the repository change to the relevant directory and give the file execute permissions
 ```
 git clone https://github.com/Rodney-O-C-Melby/domain-certificate-san-enumerator.git  
 cd domain-certificate-san-enumerator
 sudo pip install -r requirements.txt
-sudo chmod +x dcse.py
 ```  
   
 # Use DCSE
